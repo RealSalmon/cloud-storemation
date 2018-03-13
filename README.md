@@ -17,7 +17,7 @@ CloudStoremation:
   Type: "Custom::CloudStoremation"
   Version: "1.0"
   Properties:
-    ServiceToken: !Ref "CloudStormation"
+    ServiceToken: !Ref "CloudStormationKey"
     ParameterPathsAsList: # key, list for each member for each item in path
       - ...
       - ...
@@ -26,7 +26,7 @@ CloudStoremation:
       - ...
     Parameters: # key, value for each member
       - ...
-    ParameterRando: !Ref "ParameterRando" # optional but recommended...used to force refresh
+    ParameterRando: !Ref "ParameterRandoKey" # optional but recommended...used to force refresh
 #
 #
 !GetAtt ["CloudStormation", <key>]
