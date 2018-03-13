@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/RealSalmon/cloud-storemation.svg?style=svg)](https://circleci.com/gh/RealSalmon/cloud-storemation)
+
 # CloudStoremation
 
 ## A custom resource for CloudFormation that enhances integration with AWS Systems Manager Parameter Store

@@ -1,0 +1,27 @@
+# CircleCI 2.0 configuration file
+
+version: 2
+jobs:
+  test:
+    docker:
+      - image: python:alpine3.6
+    environment:
+      - PYTHONPATH: python
+      - AWS_DEFAULT_REGION: us-east-1
+    steps:
+      - checkout
+      - run:
+          name: install system dependencies
+          command: apk add --update-cache gcc musl-dev libffi-dev openssl-dev
+      - run:
+          name: install python dependencies
+          command: pip install pytest pytest-cov moto boto3==1.5.8 botocore==1.8.22
+      - run:
+          name: run tests
+          command: pytest --cov-report term-missing --cov=index tests
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - test
