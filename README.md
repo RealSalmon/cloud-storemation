@@ -7,8 +7,9 @@
 Better README coming "soon".
 
 ### Install
-1. Create new stack with cloud-formation.yml
+1. Create new stack with cloud-formation/cloud-formation.yml
 2. Update Lambda function with python/index.py
+3. Try it with the example template at cloud-formation/example.yml
 
 ### Usage
 ```yaml

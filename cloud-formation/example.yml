@@ -1,0 +1,75 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: "Test stack for the CloudStoremation custom resource"
+
+Parameters:
+
+  CloudStormationKey:
+    Description: "Systems Manager Parameter Store key of the CloudStoremation service token"
+    Type: "AWS::SSM::Parameter::Value<String>"
+    Default: "/cloud-formation/service-tokens/cloud-storemation"
+
+  ParameterRandoKey:
+    Type: "AWS::SSM::Parameter::Value<String>"
+    Description: "Systems Manager Parameter Store key for ParameterRando"
+    Default: "parameter-rando"
+
+Resources:
+
+  # Create some dummy params. Normally these would (probably...) be keys that
+  # are already present, but since this is an example template...
+  ExampleListParam1:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: "/example/test/list/item1"
+      Type: "String"
+      Value: "yadda1"
+
+  ExampleListParam2:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: "/example/test/list/item2"
+      Type: "String"
+      Value: "yadda2"
+
+  ExamplePathParam1:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: "/example/test/path/item1"
+      Type: "String"
+      Value: "ohai"
+
+  ExamplePathParam2:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: "/example/test/path/item2"
+      Type: "String"
+      Value: "there"
+
+  CloudStoremation:
+    Type: "Custom::CloudStoremation"
+    Version: "1.0"
+    Properties:
+      ServiceToken: !Ref "CloudStormationKey"
+      ParameterPathsAsList:
+        - "/example/test/list"
+      ParameterPaths:
+        - "/example/test/path"
+      Parameters:
+        - "/cloud-formation/service-tokens/cloud-storemation"
+      ParameterRando: !Ref "ParameterRandoKey"
+    DependsOn:
+      - "ExampleListParam1"
+      - "ExampleListParam2"
+      - "ExamplePathParam1"
+      - "ExamplePathParam2"
+
+Outputs:
+  ParamPathAsListJoined:
+    Value: !Join [", ", !GetAtt ["CloudStoremation", "/example/test/list"]]
+  ParamPathItem1:
+    Value: !GetAtt ["CloudStoremation", "/example/test/path/item1"]
+  ParamPathItem2:
+    Value: !GetAtt ["CloudStoremation", "/example/test/path/item2"]
+  Param:
+    Value: !GetAtt ["CloudStoremation", "/cloud-formation/service-tokens/cloud-storemation"]
