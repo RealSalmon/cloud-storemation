@@ -30,7 +30,9 @@ def lambda_handler(event, context=None):
         return send_fail(event, response, MSG_EMPTY_PROPS)
 
     # PhysicalResourceId is meaningless here, but CloudFormation requires it
-    response['PhysicalResourceId'] = str(uuid.uuid4())
+    response['PhysicalResourceId'] = event.get(
+        'PhysicalResourceId', str(uuid.uuid4())
+    )
 
     # There is nothing to do for a delete request
     if event['RequestType'] == 'Delete':
