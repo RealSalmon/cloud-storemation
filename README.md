@@ -1,5 +1,4 @@
-[![CircleCI](https://circleci.com/gh/RealSalmon/cloud-storemation.svg?style=svg)](https://circleci.com/gh/RealSalmon/cloud-storemation)
-
+![cloud-storemation](https://github.com/realsalmon/cloud-storemation/actions/workflows/main.yml/badge.svg)
 # CloudStoremation
 
 ## A custom resource for CloudFormation that enhances integration with AWS Systems Manager Parameter Store
