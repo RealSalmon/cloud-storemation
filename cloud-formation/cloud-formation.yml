@@ -4,6 +4,12 @@ AWSTemplateFormatVersion: "2010-09-09"
 
 Description: "A custom resource for CloudFormation that enhances integration with Systems Manager Parameter Store"
 
+Parameters:
+  PythonRuntime:
+    Description: "The AWS Lambda [Python] runtime to use"
+    Type: "String"
+    Default: "python3.11"
+
 Resources:
 
   # IAM role for the Lambda function
@@ -48,7 +54,7 @@ Resources:
       Handler: "index.lambda_handler"
       MemorySize: 128
       Role: !GetAtt ["IamRole", "Arn"]
-      Runtime: "python3.6"
+      Runtime: !Ref "PythonRuntime"
       Timeout: 30
       Environment:
         Variables:
